@@ -21,10 +21,45 @@ int getOption(){
     return input;
 }
 
-int main()
-{
+int main(){
+    int pilihan = getOption();
+    char is_continue;
 
-    cout << getOption() << endl;
+    enum option{CREATE = 1, READ, UPDATE, DELETE, FINISH};
+    
+    while (pilihan != FINISH){
+
+        switch (pilihan){
+        case CREATE:
+            
+            break;
+        case READ:
+            
+            break;
+        case UPDATE:
+            
+            break;
+        case DELETE:
+            
+            break;
+        default:
+            cout << "YOUR OPTION IS INVALID";
+            break;
+        }
+
+        cout<<" continue? (y/n) : ";
+        cin>> is_continue;
+        if(is_continue=='y'){
+            pilihan = getOption();
+        }
+        if(is_continue=='n'){
+            break;
+        }else{
+            cout<<"INVALID OPTION!!";
+        }
+
+    }
+    
 
     cin.get();
     return 0;
