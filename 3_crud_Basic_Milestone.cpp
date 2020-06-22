@@ -13,12 +13,26 @@ struct student{
 };
 
 void writeDatabase(fstream &database, int position, student &inputStudent){
-    database.seekp( (position-1) sizeof(inputStudent) , ios::beg);
+    database.seekp( (position-1)* sizeof(inputStudent) , ios::beg);
     database.write(reinterpret_cast<char*>(&inputStudent), sizeof(inputStudent));
+}
+
+int getDatasize(fstream &database){
+    int start, end;
+    database.seekg(0,ios::beg);
+    start = database.tellg();
+    database.seekg(0,ios::end);
+    end = database.tellg();
+    
+    return (end-start)/sizeof(student)
 }
 
 void addDatabase(fstream &database){
     student inputStudent; // creating data type from struct
+    
+    int size = getDatasize(database);
+    readData(database,size);
+    
     inputStudent.pk = 1;
     cout<< "Name : ";
     getline(cin, inputStudent.name);
@@ -27,7 +41,7 @@ void addDatabase(fstream &database){
     cout<< "Major : ";
     getline(cin, inputStudent.major);
 
-    writeDatabase(database, position, inputStudent);
+    writeDatabase(database, size+1, inputStudent);
 }
 int getMenu();
 void checkDatabase(fstream &data);
